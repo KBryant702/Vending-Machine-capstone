@@ -13,8 +13,9 @@ public class Inventory{
     try (Scanner inventoryScanner = new Scanner(inventoryList)){
         while (inventoryScanner.hasNextLine()) {
             String item = inventoryScanner.nextLine();
-            vendingItems.add(item);
-        inventoryItems.put(item, 5);
+            int lastIndex = item.lastIndexOf("|") +1;
+            vendingItems.add(item.substring(0,lastIndex));
+        inventoryItems.put(item.substring(0,lastIndex), 5);
         }
 
     }catch (FileNotFoundException e){
