@@ -2,10 +2,6 @@ package com.techelevator;
 
 import com.techelevator.view.Inventory;
 import com.techelevator.view.Menu;
-import com.techelevator.view.PurchaseMenu;
-
-import java.io.InputStream;
-
 
 
 public class VendingMachineCLI {
@@ -14,6 +10,7 @@ public class VendingMachineCLI {
 	private static final String MAIN_MENU_OPTION_PURCHASE = "Purchase";
 	private static final String MAIN_MENU_OPTION_EXIT = "Exit";
 	private static final String[] MAIN_MENU_OPTIONS = { MAIN_MENU_OPTION_DISPLAY_ITEMS, MAIN_MENU_OPTION_PURCHASE, MAIN_MENU_OPTION_EXIT };
+	private static final String CURRENT_MONEY_DISPLAY_TEXT = "Current Money Provided: $";
 
 	private static final String PURCHASE_MENU_OPTION_FEED_MONEY = "Feed Money";
 	private static final String PURCHASE_MENU_OPTION_SELECT_PRODUCT = "Select Product";
@@ -22,7 +19,6 @@ public class VendingMachineCLI {
 
 	private Menu menu;
 	private Inventory inventory = new Inventory();
-	private PurchaseMenu purchase = new PurchaseMenu(System.in, System.out);
 
 	public VendingMachineCLI(Menu menu) {
 		this.menu = menu;
@@ -37,7 +33,11 @@ public class VendingMachineCLI {
 				inventory.displayInventory();
 				// display vending machine items
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
-				String itemPurchase = (String) purchase.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
+				String itemPurchase = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS,CURRENT_MONEY_DISPLAY_TEXT);
+				if (itemPurchase.equals(PURCHASE_MENU_OPTION_FEED_MONEY)){
+				}else if (itemPurchase.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)){
+				}else if (itemPurchase.equals(PURCHASE_MENU_OPTION_FINISH_TRANSACTION)) {
+				}
 				// do purchase
 			} else if (choice.equals(MAIN_MENU_OPTION_EXIT)) {
 				System.out.println("Thank you for your purchase");
