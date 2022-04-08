@@ -12,7 +12,7 @@ public class VendingMachineCLI {
 	private static final String MAIN_MENU_OPTION_PURCHASE = "Purchase";
 	private static final String MAIN_MENU_OPTION_EXIT = "Exit";
 	private static final String[] MAIN_MENU_OPTIONS = {MAIN_MENU_OPTION_DISPLAY_ITEMS, MAIN_MENU_OPTION_PURCHASE, MAIN_MENU_OPTION_EXIT};
-	private static final String CURRENT_MONEY_DISPLAY_TEXT = "Current Money Provided: $";
+	private static final String CURRENT_MONEY_DISPLAY_TEXT = "Current Money Provided: ";
 
 	private static final String PURCHASE_MENU_OPTION_FEED_MONEY = "Feed Money";
 	private static final String PURCHASE_MENU_OPTION_SELECT_PRODUCT = "Select Product";
@@ -37,8 +37,7 @@ public class VendingMachineCLI {
 				vendingMachine.displayInventory();
 				// display vending machine items
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
-				double balance = 0.0;
-				String itemPurchase = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS, CURRENT_MONEY_DISPLAY_TEXT);
+				String itemPurchase = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS, CURRENT_MONEY_DISPLAY_TEXT + vendingMachine.getStrBalance());
 				if (itemPurchase.equals(PURCHASE_MENU_OPTION_FEED_MONEY)) {
 
 

@@ -2,17 +2,30 @@ package com.techelevator.view;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.text.NumberFormat;
 import java.util.LinkedHashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Scanner;
 
 public class VendingMachine {
     private Map<String, Product> items = new LinkedHashMap<>();
     private File inventoryList = new File("C:\\Users\\First\\Desktop\\Kimberly Bryant Student Exercises\\Pair Programming\\module-1-capstone\\capstone\\vendingmachine.csv");
+    private double balance;
+    private String strBalance;
 
     public VendingMachine (String filePath){
         inventoryList = new File(filePath);
         populateInventory();
+        balance = 0.0;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public String getStrBalance() {
+        return NumberFormat.getCurrencyInstance(Locale.US).format(balance);
     }
 
     public void populateInventory() {
