@@ -65,6 +65,36 @@ public class VendingMachine {
             System.out.println("Slot does not exist!");
         }
     }
+    public int[] returnChange() {
+        if(balance == 0.0) {
+            int[] emptyChange = {0, 0, 0};
+            return emptyChange;
+        }
+        int[] change = calculateChange(balance);
+        balance = 0.0;
+        return change;
+    }
+    private int[] calculateChange(double amount) {
+        int nickels = 0;
+        int dimes = 0;
+        int quarters = 0;
+        if(amount > 0) {
+            amount *= 100;
+            quarters = (int)Math.floor(amount / 25);
+            amount %= 25;
+        }
+        if (amount > 0) {
+            dimes = (int)Math.floor(amount / 10);
+            amount %= 10;
+        }
+        if (amount > 0) {
+            nickels = (int)Math.floor(amount / 5);
+        }
+        int[] changeValues = {quarters, dimes, nickels};
+        return changeValues;
+
+    }
+
     public void populateInventory() {
         try (Scanner inventoryScanner = new Scanner(inventoryList)){
             while (inventoryScanner.hasNextLine()) {

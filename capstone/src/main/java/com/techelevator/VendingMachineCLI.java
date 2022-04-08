@@ -51,7 +51,10 @@ public class VendingMachineCLI {
 						// update balance to remove price of item. then print item name cost,money remaining and item message.
 						//return to purchase menu when complete
 					} else if (itemPurchase.equals(PURCHASE_MENU_OPTION_FINISH_TRANSACTION)) {
-
+						int[] change = vendingMachine.returnChange();
+						System.out.println();
+						System.out.println("Returned Change: " + change[0] + " Quarter(s), " + change[1] + " Dime(s) & " + change[2] + " Nickel(s)!");
+						break;
 					}    // do purchase
 				}
 			}else if (choice.equals(MAIN_MENU_OPTION_EXIT)) {
