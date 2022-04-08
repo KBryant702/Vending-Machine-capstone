@@ -26,15 +26,8 @@ public class VendingMachineCLI {
 		this.menu = menu;
 	}
 
-	private void selectProduct() {
-		inventory.displayInventory();
-		System.out.println("Select a product by its code");
-	//	String productCode = scanner.next();
-	}
-
 	public void run() {
 		inventory.populateInventory();
-		Scanner scanner = new Scanner(System.in);
 		while (true) {
 			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
 
@@ -46,33 +39,10 @@ public class VendingMachineCLI {
 				String itemPurchase = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS, CURRENT_MONEY_DISPLAY_TEXT);
 				if (itemPurchase.equals(PURCHASE_MENU_OPTION_FEED_MONEY)) {
 
-					while (true) {
-						int addedFunds = 0;
-						System.out.println("Add funds or type N to exit");
-						String intToAdd = scanner.nextLine();
-						if (intToAdd.equalsIgnoreCase("n")) break;
-						try {
-							try {
-								addedFunds = Integer.parseInt(intToAdd);
-							} catch (Exception e) {
-								continue;
-							}
-							if (addedFunds <= -1) {
-								addedFunds = 0;
-								throw new Exception();
-							}
-						} catch (Exception e) {
-							System.out.println("Must be a whole number greater than zero");
-						}
-						balance += addedFunds;
-						System.out.println(CURRENT_MONEY_DISPLAY_TEXT + balance);
-					}
 
 				} else if (itemPurchase.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)) {
 					inventory.displayInventory();
-					System.out.println("Select a product by its code");
-					String productCode = scanner.next();
-
+					String slot = menu.getStringFromUser("Enter the slot to vend: ").toUpperCase();
 					//if inventory list contains product code provided, then it will decrease stock by 1,
 					// update balance to remove price of item. then print item name cost,money remaining and item message.
 					//return to purchase menu when complete

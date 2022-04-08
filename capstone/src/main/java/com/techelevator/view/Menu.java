@@ -31,6 +31,13 @@ public class Menu {
 		return choice;
 	}
 
+	public String getStringFromUser(String message) {
+		System.out.println();
+		System.out.print(message);
+		String input = in.nextLine();
+		return input;
+	}
+
 	private Object getChoiceFromUserInput(Object[] options) {
 		Object choice = null;
 		String userInput = in.nextLine();

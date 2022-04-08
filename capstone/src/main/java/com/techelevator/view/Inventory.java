@@ -1,21 +1,20 @@
 package com.techelevator.view;
 
 import java.io.*;
+import java.text.NumberFormat;
 import java.util.*;
 
 public class Inventory{
 
-    private List<String> vendingItems = new ArrayList<>();
     private File inventoryList = new File("C:\\Users\\First\\Desktop\\Kimberly Bryant Student Exercises\\Pair Programming\\module-1-capstone\\capstone\\vendingmachine.csv");
-    private Map<String, Integer> inventoryItems = new HashMap<>();
+    private Map<String, Product> items = new LinkedHashMap<>();
 
     public void populateInventory() {
     try (Scanner inventoryScanner = new Scanner(inventoryList)){
         while (inventoryScanner.hasNextLine()) {
-            String item = inventoryScanner.nextLine();
-            int lastIndex = item.lastIndexOf("|") +1;
-            vendingItems.add(item.substring(0,lastIndex));
-        inventoryItems.put(item.substring(0,lastIndex), 5);
+            String [] itemArray = inventoryScanner.nextLine().split("\\|");
+           items.put(itemArray [0],new Product(itemArray));
+
         }
 
     }catch (FileNotFoundException e){
@@ -23,9 +22,22 @@ public class Inventory{
     }
     }
     public void displayInventory(){
-        for (String item: vendingItems
-             ) {
-            System.out.println(item + inventoryItems.get(item));
+        System.out.println();
+        System.out.println("VENDING MACHINE ITEMS");
+        System.out.println();
+        System.out.printf("%-5s %-8s %-20s %-8s\n", "Slot", "Price", "Name", "Left");
+        System.out.println("-----------------------------------------");
+        for (Map.Entry<String, Product> entry: items.entrySet())
+        {
+            Product item = entry.getValue();
+            if (item.getStock() < 1) {
+//                Vendable soldOutItem = soldOutItems.get(slot);
+                System.out.printf("%-5s %-8s %-20s %-15s\n", item.getSlot(), item.getStrPrice(), item.getName(), "SOLD OUT!");
+                continue;
+            }else{
+
+            System.out.printf("%-5s %-8s %-20s %-15s\n", item.getSlot(), item.getStrPrice(), item.getName(), item.getStock());
+        }
 
         }
     }
