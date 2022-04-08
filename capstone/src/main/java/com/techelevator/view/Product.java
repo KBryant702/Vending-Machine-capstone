@@ -33,6 +33,9 @@ public class Product {
                 break;
         }
     }
+    public void decreaseStock(){
+        stock -= 1;
+    }
 
     public String getStrPrice() {
         return NumberFormat.getCurrencyInstance(Locale.US).format(price);

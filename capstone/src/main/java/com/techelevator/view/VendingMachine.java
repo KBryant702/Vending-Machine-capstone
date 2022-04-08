@@ -20,6 +20,10 @@ public class VendingMachine {
         balance = 0.0;
     }
 
+    public Map<String, Product> getItems() {
+        return items;
+    }
+
     public double getBalance() {
         return balance;
     }
@@ -27,7 +31,40 @@ public class VendingMachine {
     public String getStrBalance() {
         return NumberFormat.getCurrencyInstance(Locale.US).format(balance);
     }
+    public void feedMoney(int feedAmount){
+        balance += feedAmount;
+    }
+    public void spendMoney(double price){
+        balance -= price;
+    }
 
+
+
+    public void vend(String slot){
+        boolean slotExists = items.containsKey(slot);
+
+        if (slotExists) {
+            Product vendedItem = items.get(slot);
+            if (vendedItem.getStock() > 0 && balance >= vendedItem.getPrice()) {
+                spendMoney(vendedItem.getPrice());
+                vendedItem.decreaseStock();
+                System.out.println();
+                System.out.println("Name: " + vendedItem.getName() + ", Price: " + vendedItem.getStrPrice() + ", New Balance: " + getStrBalance() + "\n" + vendedItem.getMessage());
+
+            } else {
+                if (vendedItem.getStock()< 1) {
+                    System.out.println();
+                    System.out.println("Item is sold out!");
+                } else {
+                    System.out.println();
+                    System.out.println("There is not enough money provided! Please provide more money!");
+                }
+            }
+        } else {
+            System.out.println();
+            System.out.println("Slot does not exist!");
+        }
+    }
     public void populateInventory() {
         try (Scanner inventoryScanner = new Scanner(inventoryList)){
             while (inventoryScanner.hasNextLine()) {
@@ -60,4 +97,5 @@ public class VendingMachine {
 
         }
     }
+
 }

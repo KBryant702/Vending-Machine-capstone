@@ -37,6 +37,28 @@ public class Menu {
 		String input = in.nextLine();
 		return input;
 	}
+	public int getMoneyFromUser(String message) {
+		int convertedAmount = 0;
+		while(true) {
+			try {
+				System.out.println();
+				System.out.print(message);
+				String enteredAmount = in.nextLine();
+				convertedAmount = Integer.parseInt(enteredAmount);
+				if (convertedAmount < 1) {
+					System.out.println();
+					System.out.println("We only accept whole dollar amounts that are greater than 0");
+					continue;
+				}
+				break;
+			} catch (Exception e) {
+				System.out.println();
+				System.out.println("Invalid amount!");
+				continue;
+			}
+		}
+		return convertedAmount;
+	}
 
 	private Object getChoiceFromUserInput(Object[] options) {
 		Object choice = null;
