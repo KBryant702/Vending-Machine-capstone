@@ -2,6 +2,8 @@ package com.techelevator.view;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.LinkedHashMap;
 import java.util.Locale;
@@ -32,13 +34,11 @@ public class VendingMachine {
         return NumberFormat.getCurrencyInstance(Locale.US).format(balance);
     }
     public void feedMoney(int feedAmount){
+        String oldBalance = getStrBalance();
         balance += feedAmount;
+        String newBalance = getStrBalance();
+        TransactionLog.commitChange("Feed Money", oldBalance, newBalance);
     }
-    public void spendMoney(double price){
-        balance -= price;
-    }
-
-
 
     public void vend(String slot){
         boolean slotExists = items.containsKey(slot);
@@ -46,8 +46,11 @@ public class VendingMachine {
         if (slotExists) {
             Product vendedItem = items.get(slot);
             if (vendedItem.getStock() > 0 && balance >= vendedItem.getPrice()) {
-                spendMoney(vendedItem.getPrice());
+                String oldBalance = getStrBalance();
+                balance -= vendedItem.getPrice();
+                String newBalance = getStrBalance();
                 vendedItem.decreaseStock();
+                TransactionLog.commitChange((vendedItem.getName() + " " + vendedItem.getSlot()), oldBalance, newBalance);
                 System.out.println();
                 System.out.println("Name: " + vendedItem.getName() + ", Price: " + vendedItem.getStrPrice() + ", New Balance: " + getStrBalance() + "\n" + vendedItem.getMessage());
 
@@ -71,7 +74,10 @@ public class VendingMachine {
             return emptyChange;
         }
         int[] change = calculateChange(balance);
+        String oldBalance = getStrBalance();
         balance = 0.0;
+        String newBalance = getStrBalance();
+        TransactionLog.commitChange("Return Change", oldBalance, newBalance);
         return change;
     }
     private int[] calculateChange(double amount) {
