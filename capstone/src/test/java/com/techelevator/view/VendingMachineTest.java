@@ -24,6 +24,7 @@ public void getVendingMachineInstance(){
 
 @Test
 public void positive_balance_returns_change(){
+    vendingMachine.feedMoney(5);
     Assert.assertEquals("Returned Change: 20 Quarter(s), 0 Dime(s) & 0 Nickel(s)!", vendingMachine.returnChange());
 }
 
