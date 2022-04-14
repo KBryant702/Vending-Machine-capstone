@@ -2,8 +2,6 @@ package com.techelevator.view;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.LinkedHashMap;
 import java.util.Locale;
@@ -30,9 +28,9 @@ public class VendingMachine {
         String newBalance = getStrBalance();
         TransactionLog.commitChange("Feed Money", oldBalance, newBalance);
     }
-
+    //Checks if enough stock and money for purchase, decreases stock when purchased
     public void vend(String slot){
-        boolean slotExists = items.containsKey(slot);
+        boolean slotExists = items.containsKey(slot); //checks if slot input exists
 
         if (slotExists) {
             Product vendedItem = items.get(slot);
@@ -51,12 +49,12 @@ public class VendingMachine {
                     System.out.println("Item is sold out!");
                 } else {
                     System.out.println();
-                    System.out.println("There is not enough money provided! Please provide more money!");
+                    System.out.println("Not enough money provided! Please provide more money!");
                 }
             }
         } else {
             System.out.println();
-            System.out.println("Slot does not exist!");
+            System.out.println("Slot does not exist! Make another selection.");
         }
     }
     public String returnChange() {
