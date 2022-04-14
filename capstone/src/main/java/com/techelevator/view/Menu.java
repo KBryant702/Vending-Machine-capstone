@@ -31,30 +31,28 @@ public class Menu {
 		return choice;
 	}
 
-	public String getStringFromUser(String message) {
+	public String getSlotFromUser() {
 		System.out.println();
-		System.out.print(message);
-		String input = in.nextLine();
-		return input;
+		System.out.print("Enter the slot to vend: ");
+		return in.nextLine().toUpperCase();
 	}
-	public int getMoneyFromUser(String message) {
+	public int getMoneyFromUser() {
 		int convertedAmount = 0;
 		while(true) {
 			try {
 				System.out.println();
-				System.out.print(message);
+				System.out.print("Enter the amount to feed into machine: ");
 				String enteredAmount = in.nextLine();
 				convertedAmount = Integer.parseInt(enteredAmount);
-				if (convertedAmount < 1) {
+				if (convertedAmount < 1) { // if a negative number is entered print out message to user
 					System.out.println();
-					System.out.println("We only accept whole dollar amounts that are greater than 0");
+					System.out.println("No freebies! Please enter whole dollar amount that is greater than 0");
 					continue;
 				}
 				break;
 			} catch (Exception e) {
 				System.out.println();
-				System.out.println("Invalid amount!");
-				continue;
+				System.out.println("Invalid! Please enter a whole dollar amount");
 			}
 		}
 		return convertedAmount;
@@ -64,7 +62,7 @@ public class Menu {
 		Object choice = null;
 		String userInput = in.nextLine();
 		try {
-			int selectedOption = Integer.valueOf(userInput);
+			int selectedOption = Integer.parseInt(userInput);
 			if (selectedOption > 0 && selectedOption <= options.length) {
 				choice = options[selectedOption - 1];
 			}

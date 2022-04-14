@@ -12,22 +12,13 @@ import java.util.Scanner;
 
 public class VendingMachine {
     private Map<String, Product> items = new LinkedHashMap<>();
-    private File inventoryList = new File("C:\\Users\\First\\Desktop\\Kimberly Bryant Student Exercises\\Pair Programming\\module-1-capstone\\capstone\\vendingmachine.csv");
+    private File inventoryList;
     private double balance;
-    private String strBalance;
 
     public VendingMachine (String filePath){
         inventoryList = new File(filePath);
         populateInventory();
         balance = 0.0;
-    }
-
-    public Map<String, Product> getItems() {
-        return items;
-    }
-
-    public double getBalance() {
-        return balance;
     }
 
     public String getStrBalance() {
@@ -68,17 +59,16 @@ public class VendingMachine {
             System.out.println("Slot does not exist!");
         }
     }
-    public int[] returnChange() {
+    public String returnChange() {
         if(balance == 0.0) {
-            int[] emptyChange = {0, 0, 0};
-            return emptyChange;
+            return ("");
         }
         int[] change = calculateChange(balance);
         String oldBalance = getStrBalance();
         balance = 0.0;
         String newBalance = getStrBalance();
         TransactionLog.commitChange("Return Change", oldBalance, newBalance);
-        return change;
+        return ("Returned Change: " + change[0] + " Quarter(s), " + change[1] + " Dime(s) & " + change[2] + " Nickel(s)!");
     }
     private int[] calculateChange(double amount) {
         int nickels = 0;
@@ -96,8 +86,7 @@ public class VendingMachine {
         if (amount > 0) {
             nickels = (int)Math.floor(amount / 5);
         }
-        int[] changeValues = {quarters, dimes, nickels};
-        return changeValues;
+        return new int[]{quarters, dimes, nickels};
 
     }
 
@@ -123,9 +112,7 @@ public class VendingMachine {
         {
             Product item = entry.getValue();
             if (item.getStock() < 1) {
-//                Vendable soldOutItem = soldOutItems.get(slot);
                 System.out.printf("%-5s %-8s %-20s %-15s\n", item.getSlot(), item.getStrPrice(), item.getName(), "SOLD OUT!");
-                continue;
             }else{
 
                 System.out.printf("%-5s %-8s %-20s %-15s\n", item.getSlot(), item.getStrPrice(), item.getName(), item.getStock());

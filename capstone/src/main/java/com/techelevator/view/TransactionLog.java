@@ -7,21 +7,23 @@ import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+
 public class TransactionLog {
+    //Method that logs the commit change
     private static void log(String action) {
+
         File newFile = new File("log.txt");
 
         try {
-            newFile.createNewFile();
-            FileWriter fw = new FileWriter("log.txt", true);
+            FileWriter fw = new FileWriter (newFile, true);
             fw.write(action);
             fw.close();
         } catch (IOException error) {
             error.printStackTrace();
         }
-
     }
 
+    //Add transaction information to log.txt
     public static void commitChange(String description, String oldBalance, String newBalance) {
         SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss a");
         String currentDate = formatter.format(new Date()).toUpperCase();

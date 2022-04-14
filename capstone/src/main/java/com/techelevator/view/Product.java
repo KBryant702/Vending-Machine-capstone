@@ -60,8 +60,4 @@ public class Product {
     public String getName() {
         return name;
     }
-    // WORK on LATER
-    //public void setStock(int stock){
-  //      if()
-   // }
 }

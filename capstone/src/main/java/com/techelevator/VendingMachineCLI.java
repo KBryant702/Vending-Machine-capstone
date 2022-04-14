@@ -18,7 +18,7 @@ public class VendingMachineCLI {
 	private static final String PURCHASE_MENU_OPTION_SELECT_PRODUCT = "Select Product";
 	private static final String PURCHASE_MENU_OPTION_FINISH_TRANSACTION = "Finish Transaction";
 	private static final String[] PURCHASE_MENU_OPTIONS = {PURCHASE_MENU_OPTION_FEED_MONEY, PURCHASE_MENU_OPTION_SELECT_PRODUCT, PURCHASE_MENU_OPTION_FINISH_TRANSACTION};
-	private static final String FILE_PATH = "C:\\Users\\First\\Desktop\\Kimberly Bryant Student Exercises\\Pair Programming\\module-1-capstone\\capstone\\vendingmachine.csv";
+	private static final String FILE_PATH = "capstone/vendingmachine.csv";
 
 	private Menu menu;
 	private VendingMachine vendingMachine;
@@ -40,20 +40,19 @@ public class VendingMachineCLI {
 				while (true) {
 					String itemPurchase = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS, CURRENT_MONEY_DISPLAY_TEXT + vendingMachine.getStrBalance());
 					if (itemPurchase.equals(PURCHASE_MENU_OPTION_FEED_MONEY)) {
-						int feedAmount = menu.getMoneyFromUser("Enter the amount to feed into machine: ");
+						int feedAmount = menu.getMoneyFromUser();
 						vendingMachine.feedMoney(feedAmount);
 					} else if (itemPurchase.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)) {
 						vendingMachine.displayInventory();
-						String slot = menu.getStringFromUser("Enter the slot to vend: ").toUpperCase();
+						String slot = menu.getSlotFromUser();
 						vendingMachine.vend(slot);
 
 						//if inventory list contains product code provided, then it will decrease stock by 1,
 						// update balance to remove price of item. then print item name cost,money remaining and item message.
 						//return to purchase menu when complete
 					} else if (itemPurchase.equals(PURCHASE_MENU_OPTION_FINISH_TRANSACTION)) {
-						int[] change = vendingMachine.returnChange();
 						System.out.println();
-						System.out.println("Returned Change: " + change[0] + " Quarter(s), " + change[1] + " Dime(s) & " + change[2] + " Nickel(s)!");
+						System.out.println(vendingMachine.returnChange());
 						break;
 					}    // do purchase
 				}
