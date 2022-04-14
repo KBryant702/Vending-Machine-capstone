@@ -22,12 +22,15 @@ public class VendingMachine {
     public String getStrBalance() {
         return NumberFormat.getCurrencyInstance(Locale.US).format(balance);
     }
+
     public void feedMoney(int feedAmount){
         String oldBalance = getStrBalance();
         balance += feedAmount;
         String newBalance = getStrBalance();
+        //log the change of money balance
         TransactionLog.commitChange("Feed Money", oldBalance, newBalance);
     }
+
     //Checks if enough stock and money for purchase, decreases stock when purchased
     public void vend(String slot){
         boolean slotExists = items.containsKey(slot); //checks if slot input exists
@@ -57,6 +60,7 @@ public class VendingMachine {
             System.out.println("Slot does not exist! Make another selection.");
         }
     }
+
     public String returnChange() {
         if(balance == 0.0) {
             return ("");
@@ -68,6 +72,8 @@ public class VendingMachine {
         TransactionLog.commitChange("Return Change", oldBalance, newBalance);
         return ("Returned Change: " + change[0] + " Quarter(s), " + change[1] + " Dime(s) & " + change[2] + " Nickel(s)!");
     }
+
+    //get exact number of each coin denomination for returned change
     private int[] calculateChange(double amount) {
         int nickels = 0;
         int dimes = 0;
@@ -93,13 +99,12 @@ public class VendingMachine {
             while (inventoryScanner.hasNextLine()) {
                 String [] itemArray = inventoryScanner.nextLine().split("\\|");
                 items.put(itemArray [0],new Product(itemArray));
-
             }
-
         }catch (FileNotFoundException e){
             System.out.println(e.getMessage());
         }
     }
+
     public void displayInventory(){
         System.out.println();
         System.out.println("VENDING MACHINE ITEMS");
@@ -112,11 +117,8 @@ public class VendingMachine {
             if (item.getStock() < 1) {
                 System.out.printf("%-5s %-8s %-20s %-15s\n", item.getSlot(), item.getStrPrice(), item.getName(), "SOLD OUT!");
             }else{
-
                 System.out.printf("%-5s %-8s %-20s %-15s\n", item.getSlot(), item.getStrPrice(), item.getName(), item.getStock());
             }
-
         }
     }
-
 }

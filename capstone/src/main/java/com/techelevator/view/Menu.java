@@ -14,6 +14,7 @@ public class Menu {
 		this.out = new PrintWriter(output);
 		this.in = new Scanner(input);
 	}
+
 	public Object getChoiceFromOptions(Object[] options, String message) {
 		Object choice = null;
 		while (choice == null) {
@@ -22,6 +23,7 @@ public class Menu {
 		}
 		return choice;
 	}
+
 	public Object getChoiceFromOptions(Object[] options) {
 		Object choice = null;
 		while (choice == null) {
@@ -36,6 +38,7 @@ public class Menu {
 		System.out.print("Enter the slot to vend: ");
 		return in.nextLine().toUpperCase();
 	}
+	
 	public int getMoneyFromUser() {
 		int convertedAmount = 0;
 		while(true) {

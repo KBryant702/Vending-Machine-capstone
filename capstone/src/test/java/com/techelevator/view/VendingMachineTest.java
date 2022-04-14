@@ -36,7 +36,7 @@ public class VendingMachineTest {
         Assert.assertEquals("", vendingMachine.returnChange());
     }
 
-//    @Test Make sure available items are vended
+  // @Test //Make sure available items are vended
     // @Test sold out
     // @Test not enough money
     //@Test Incorrect Slot

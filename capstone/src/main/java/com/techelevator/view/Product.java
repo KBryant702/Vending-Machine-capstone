@@ -11,13 +11,13 @@ public class Product {
     private String message;
     private double price;
     private String name;
-    private String strPrice;
 
     public Product(String [] itemArray) {
         this.slot = itemArray[0];
         this.name = itemArray[1];
         this.price = Double.parseDouble(itemArray[2]);
         this.type = itemArray[3];
+        //assign message based on product type
         switch (type) {
             case "Candy":
                 this.message = ("Munch Munch, Yum!");
@@ -33,6 +33,7 @@ public class Product {
                 break;
         }
     }
+
     public void decreaseStock(){
         stock -= 1;
     }
