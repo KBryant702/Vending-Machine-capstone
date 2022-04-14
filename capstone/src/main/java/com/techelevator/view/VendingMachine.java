@@ -23,6 +23,10 @@ public class VendingMachine {
         return NumberFormat.getCurrencyInstance(Locale.US).format(balance);
     }
 
+    public Map<String, Product> getItems() {
+        return items;
+    }
+
     public void feedMoney(int feedAmount){
         String oldBalance = getStrBalance();
         balance += feedAmount;

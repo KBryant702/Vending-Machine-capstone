@@ -38,7 +38,7 @@ public class Menu {
 		System.out.print("Enter the slot to vend: ");
 		return in.nextLine().toUpperCase();
 	}
-	
+
 	public int getMoneyFromUser() {
 		int convertedAmount = 0;
 		while(true) {
