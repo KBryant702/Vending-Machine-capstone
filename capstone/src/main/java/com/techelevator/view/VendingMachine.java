@@ -13,7 +13,7 @@ public class VendingMachine {
     private File inventoryList;
     private double balance;
 
-    public VendingMachine (String filePath){
+    public VendingMachine(String filePath) {
         inventoryList = new File(filePath);
         populateInventory();
         balance = 0.0;
@@ -27,7 +27,7 @@ public class VendingMachine {
         return items;
     }
 
-    public void feedMoney(int feedAmount){
+    public void feedMoney(int feedAmount) {
         String oldBalance = getStrBalance();
         balance += feedAmount;
         String newBalance = getStrBalance();
@@ -36,7 +36,7 @@ public class VendingMachine {
     }
 
     //Checks if enough stock and money for purchase, decreases stock when purchased
-    public void vend(String slot){
+    public void vend(String slot) {
         boolean slotExists = items.containsKey(slot); //checks if slot input exists
 
         if (slotExists) {
@@ -48,10 +48,11 @@ public class VendingMachine {
                 vendedItem.decreaseStock();
                 TransactionLog.commitChange((vendedItem.getName() + " " + vendedItem.getSlot()), oldBalance, newBalance);
                 System.out.println();
-                System.out.println("Name: " + vendedItem.getName() + ", Price: " + vendedItem.getStrPrice() + ", New Balance: " + getStrBalance() + "\n" + vendedItem.getMessage());
+                System.out.println("Name: " + vendedItem.getName() + ", Price: " + vendedItem.getStrPrice()
+                        + ", New Balance: " + getStrBalance() + "\n" + vendedItem.getMessage());
 
             } else {
-                if (vendedItem.getStock()< 1) {
+                if (vendedItem.getStock() < 1) {
                     System.out.println();
                     System.out.println("Item is sold out!");
                 } else {
@@ -66,7 +67,7 @@ public class VendingMachine {
     }
 
     public String returnChange() {
-        if(balance == 0.0) {
+        if (balance == 0.0) {
             return ("");
         }
         int[] change = calculateChange(balance);
@@ -82,45 +83,44 @@ public class VendingMachine {
         int nickels = 0;
         int dimes = 0;
         int quarters = 0;
-        if(amount > 0) {
+        if (amount > 0) {
             amount *= 100;
-            quarters = (int)Math.floor(amount / 25);
+            quarters = (int) Math.floor(amount / 25);
             amount %= 25;
         }
         if (amount > 0) {
-            dimes = (int)Math.floor(amount / 10);
+            dimes = (int) Math.floor(amount / 10);
             amount %= 10;
         }
         if (amount > 0) {
-            nickels = (int)Math.floor(amount / 5);
+            nickels = (int) Math.floor(amount / 5);
         }
         return new int[]{quarters, dimes, nickels};
 
     }
 
     public void populateInventory() {
-        try (Scanner inventoryScanner = new Scanner(inventoryList)){
+        try (Scanner inventoryScanner = new Scanner(inventoryList)) {
             while (inventoryScanner.hasNextLine()) {
-                String [] itemArray = inventoryScanner.nextLine().split("\\|");
-                items.put(itemArray [0],new Product(itemArray));
+                String[] itemArray = inventoryScanner.nextLine().split("\\|");
+                items.put(itemArray[0], new Product(itemArray));
             }
-        }catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public void displayInventory(){
+    public void displayInventory() {
         System.out.println();
         System.out.println("VENDING MACHINE ITEMS");
         System.out.println();
         System.out.printf("%-5s %-8s %-20s %-8s\n", "Slot", "Price", "Name", "Left");
         System.out.println("-----------------------------------------");
-        for (Map.Entry<String, Product> entry: items.entrySet())
-        {
+        for (Map.Entry<String, Product> entry : items.entrySet()) {
             Product item = entry.getValue();
             if (item.getStock() < 1) {
                 System.out.printf("%-5s %-8s %-20s %-15s\n", item.getSlot(), item.getStrPrice(), item.getName(), "SOLD OUT!");
-            }else{
+            } else {
                 System.out.printf("%-5s %-8s %-20s %-15s\n", item.getSlot(), item.getStrPrice(), item.getName(), item.getStock());
             }
         }

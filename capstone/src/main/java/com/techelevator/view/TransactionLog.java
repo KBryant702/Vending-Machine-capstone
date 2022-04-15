@@ -3,7 +3,6 @@ package com.techelevator.view;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -15,7 +14,7 @@ public class TransactionLog {
         File newFile = new File("log.txt");
 
         try {
-            FileWriter fw = new FileWriter (newFile, true);
+            FileWriter fw = new FileWriter(newFile, true);
             fw.write(action);
             fw.close();
         } catch (IOException error) {
@@ -23,7 +22,7 @@ public class TransactionLog {
         }
     }
 
-    //Add transaction information to log.txt
+    //Format log entry and pass to log method
     public static void commitChange(String description, String oldBalance, String newBalance) {
         SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss a");
         String currentDate = formatter.format(new Date()).toUpperCase();

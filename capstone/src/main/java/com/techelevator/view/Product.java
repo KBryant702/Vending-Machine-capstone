@@ -5,14 +5,17 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 public class Product {
+
+    private static final int INITIAL_STOCK = 5;
     private String type;
     private String slot;
-    private int stock = 5;
+    private int stock = INITIAL_STOCK;
     private String message;
     private double price;
     private String name;
 
-    public Product(String [] itemArray) {
+
+    public Product(String[] itemArray) {
         this.slot = itemArray[0];
         this.name = itemArray[1];
         this.price = Double.parseDouble(itemArray[2]);
@@ -34,7 +37,7 @@ public class Product {
         }
     }
 
-    public void decreaseStock(){
+    public void decreaseStock() {
         stock -= 1;
     }
 

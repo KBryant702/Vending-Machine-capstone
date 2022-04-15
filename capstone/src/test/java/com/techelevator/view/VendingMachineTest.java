@@ -10,7 +10,7 @@ public class VendingMachineTest {
 
     @Before
     public void getVendingMachineInstance() {
-        this.vendingMachine = new VendingMachine("capstone/vendingmachine.csv");
+        this.vendingMachine = new VendingMachine("vendingmachine.csv");
     }
 
     @Test

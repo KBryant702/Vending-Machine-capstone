@@ -181,7 +181,6 @@ public class MenuTest {
 	}
 	@Test
 	public void decimals_fails_feed_money(){
-		Object[] options = new Object[] { "Larry", "Curly", "Moe" };
 		Menu menu = getMenuForTestingWithUserInput("1.5" + System.lineSeparator() + "2" + System.lineSeparator());
 		int output = menu.getMoneyFromUser();
 		Assert.assertEquals(2,output);
