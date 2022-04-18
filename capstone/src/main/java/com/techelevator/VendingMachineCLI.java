@@ -37,23 +37,23 @@ public class VendingMachineCLI {
             } else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
                 while (true) {
                     //display purchase menu with current money balance
-                    String itemPurchase = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS, CURRENT_MONEY_DISPLAY_TEXT + vendingMachine.getStrBalance());
-                    if (itemPurchase.equals(PURCHASE_MENU_OPTION_FEED_MONEY)) {
+                    choice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS, CURRENT_MONEY_DISPLAY_TEXT + vendingMachine.getStrBalance());
+                    if (choice.equals(PURCHASE_MENU_OPTION_FEED_MONEY)) {
                         int feedAmount = menu.getMoneyFromUser();
                         vendingMachine.feedMoney(feedAmount);
-                    } else if (itemPurchase.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)) {
+                    } else if (choice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)) {
                         vendingMachine.displayInventory();
                         String slot = menu.getSlotFromUser();
                         vendingMachine.vend(slot);
 
-                    } else if (itemPurchase.equals(PURCHASE_MENU_OPTION_FINISH_TRANSACTION)) {
+                    } else if (choice.equals(PURCHASE_MENU_OPTION_FINISH_TRANSACTION)) {
                         System.out.println();
                         System.out.println(vendingMachine.returnChange());
                         break;
                     }
                 }
             } else if (choice.equals(MAIN_MENU_OPTION_EXIT)) {
-                System.out.println("Thank you for your purchase");
+                System.out.println("Thank you for choosing Umbrella Corp.");
                 break;
             }
         }

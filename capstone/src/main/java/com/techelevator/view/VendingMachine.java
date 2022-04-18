@@ -9,12 +9,12 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class VendingMachine {
-    private Map<String, Product> items = new LinkedHashMap<>();
-    private File inventoryList;
+    private Map<String, Product> inventory = new LinkedHashMap<>();
+    private File inventoryFile;
     private double balance;
 
     public VendingMachine(String filePath) {
-        inventoryList = new File(filePath);
+        inventoryFile = new File(filePath);
         populateInventory();
         balance = 0.0;
     }
@@ -23,8 +23,8 @@ public class VendingMachine {
         return NumberFormat.getCurrencyInstance(Locale.US).format(balance);
     }
 
-    public Map<String, Product> getItems() {
-        return items;
+    public Map<String, Product> getInventory() {
+        return inventory;
     }
 
     public void feedMoney(int feedAmount) {
@@ -32,15 +32,15 @@ public class VendingMachine {
         balance += feedAmount;
         String newBalance = getStrBalance();
         //log the change of money balance
-        TransactionLog.commitChange("Feed Money", oldBalance, newBalance);
+        TransactionLog.commitChange("FEED MONEY:", oldBalance, newBalance);
     }
 
     //Checks if enough stock and money for purchase, decreases stock when purchased
     public void vend(String slot) {
-        boolean slotExists = items.containsKey(slot); //checks if slot input exists
+        boolean slotExists = inventory.containsKey(slot); //checks if slot input exists
 
         if (slotExists) {
-            Product vendedItem = items.get(slot);
+            Product vendedItem = inventory.get(slot);
             if (vendedItem.getStock() > 0 && balance >= vendedItem.getPrice()) {
                 String oldBalance = getStrBalance();
                 balance -= vendedItem.getPrice();
@@ -74,7 +74,7 @@ public class VendingMachine {
         String oldBalance = getStrBalance();
         balance = 0.0;
         String newBalance = getStrBalance();
-        TransactionLog.commitChange("Return Change", oldBalance, newBalance);
+        TransactionLog.commitChange("GIVE CHANGE:", oldBalance, newBalance);
         return ("Returned Change: " + change[0] + " Quarter(s), " + change[1] + " Dime(s) & " + change[2] + " Nickel(s)!");
     }
 
@@ -99,11 +99,11 @@ public class VendingMachine {
 
     }
 
-    public void populateInventory() {
-        try (Scanner inventoryScanner = new Scanner(inventoryList)) {
+    private void populateInventory() {
+        try (Scanner inventoryScanner = new Scanner(inventoryFile)) {
             while (inventoryScanner.hasNextLine()) {
-                String[] itemArray = inventoryScanner.nextLine().split("\\|");
-                items.put(itemArray[0], new Product(itemArray));
+                Product product = new Product (inventoryScanner.nextLine().split("\\|"));
+                inventory.put(product.getSlot(), product);
             }
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
@@ -116,7 +116,7 @@ public class VendingMachine {
         System.out.println();
         System.out.printf("%-5s %-8s %-20s %-8s\n", "Slot", "Price", "Name", "Left");
         System.out.println("-----------------------------------------");
-        for (Map.Entry<String, Product> entry : items.entrySet()) {
+        for (Map.Entry<String, Product> entry : inventory.entrySet()) {
             Product item = entry.getValue();
             if (item.getStock() < 1) {
                 System.out.printf("%-5s %-8s %-20s %-15s\n", item.getSlot(), item.getStrPrice(), item.getName(), "SOLD OUT!");

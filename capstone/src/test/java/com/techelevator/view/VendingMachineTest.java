@@ -40,18 +40,18 @@ public class VendingMachineTest {
     public void available_item_is_vended() {
         vendingMachine.feedMoney(5);
         vendingMachine.vend("D2");
-        Assert.assertEquals(Integer.valueOf(4), vendingMachine.getItems().get("D2").getStock());
+        Assert.assertEquals(Integer.valueOf(4), vendingMachine.getInventory().get("D2").getStock());
         Assert.assertEquals("$4.05", vendingMachine.getStrBalance());
     }
 
     @Test
     public void sold_out_item_is_not_vended() {
         vendingMachine.feedMoney(5);
-        vendingMachine.getItems().get("B1").decreaseStock();
-        vendingMachine.getItems().get("B1").decreaseStock();
-        vendingMachine.getItems().get("B1").decreaseStock();
-        vendingMachine.getItems().get("B1").decreaseStock();
-        vendingMachine.getItems().get("B1").decreaseStock();
+        vendingMachine.getInventory().get("B1").decreaseStock();
+        vendingMachine.getInventory().get("B1").decreaseStock();
+        vendingMachine.getInventory().get("B1").decreaseStock();
+        vendingMachine.getInventory().get("B1").decreaseStock();
+        vendingMachine.getInventory().get("B1").decreaseStock();
         vendingMachine.vend("B1");
         Assert.assertEquals("$5.00", vendingMachine.getStrBalance());
     }
@@ -59,7 +59,7 @@ public class VendingMachineTest {
     @Test
     public void not_enough_money_does_not_vend_item() {
         vendingMachine.vend("D2");
-        Assert.assertEquals(Integer.valueOf(5), vendingMachine.getItems().get("D2").getStock());
+        Assert.assertEquals(Integer.valueOf(5), vendingMachine.getInventory().get("D2").getStock());
         Assert.assertEquals("$0.00", vendingMachine.getStrBalance());
     }
 
