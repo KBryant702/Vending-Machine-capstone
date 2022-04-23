@@ -28,6 +28,7 @@ public class VendingMachineCLI {
     }
 
     public void run() {
+        System.out.println("Welcome to the Umbrella Corp. Vendo-Matic 800");
         while (true) {
             String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
 

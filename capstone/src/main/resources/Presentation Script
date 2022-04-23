@@ -1,0 +1,44 @@
+I’m Kimberly Bryant, the driver
+and I’m Danielle Rouse, the Navigator.
+This is our Umbrella Corp Vend O matic 800
+
+Our Approach - Kim
+ - Was to build in order of functional use to the end user
+
+Teamwork and communication were imperative. In the planning stage we shared our early research.
+We began by expanding on the existing framework that was provided.
+Our focus was prioritizing each of the menu options as they would be needed during a purchase.
+We eventually streamlined our classes; With the growing list of classes, enums, and interfaces we came to realize this was more complicated than it needed to be.
+We then returned to the revised code to catch exceptions and cover edge cases.
+
+Next Our Solution Design - Kim
+- is shown as a chart of the Flow of Information
+
+Vending Machine CLI runs the basic functions.
+The Menu class gets input from the user and passes it to CLI which activates methods in the VendingMachine class.
+Vending machine class contains actions, like setting the stock, displaying inventory, and handling money.
+The product class assigns messages to be passed to the Vending machine class when an item is vended as well as update the stock.
+At the end of the purchase, transaction information collected is passed to the Transaction Log.
+It then creates the file and or logs the transaction information to the log file.
+
+
+
+Code Demo - Danielle
+
+
+In Reflection - Kim
+
+Although the project seemed overwhelming at first, Open communication and teamwork was a huge asset in this project.
+There are many different ways to approach a solution. By working together we were able to teach with our strengths and learn through our weaknesses.
+By building this project focusing on the steps a user would take, it kept the project runnable throughout the build. Placing ourselves in the position of the user helped us focus on the next step to take.
+As the project grew in functionality the program went through a shift. Regular discussions while testing our code helped to identify opportunities for improvement.
+A challenge we faced was learning the importance of opening your program from the XML file which creates the file structures so everything works correctly every time.
+
+Thank you for your time.
+
+
+
+As for Code we liked-
+Kim - I liked the use of Switch cases to display the proper product messages helped improve readability of the code.
+Danielle - Inventory setup: Map made it easy to display the inventory and access individual products for changes.
+
